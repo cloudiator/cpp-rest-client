@@ -22,7 +22,6 @@
 
 #include "../ModelBase.h"
 
-#include "OperatingSystemType.h"
 #include "OperatingSystemFamily.h"
 #include "OperatingSystemArchitecture.h"
 #include <cpprest/details/basic_types.h>
@@ -60,13 +59,6 @@ public:
     /// <summary>
     /// 
     /// </summary>
-    std::shared_ptr<OperatingSystemType> getOperatingSystemType() const;
-    bool operatingSystemTypeIsSet() const;
-    void unsetOperatingSystemType();
-    void setOperatingSystemType(std::shared_ptr<OperatingSystemType> value);
-    /// <summary>
-    /// 
-    /// </summary>
     std::shared_ptr<OperatingSystemFamily> getOperatingSystemFamily() const;
     bool operatingSystemFamilyIsSet() const;
     void unsetOperatingSystemFamily();
@@ -87,8 +79,6 @@ public:
     void setOperatingSystemVersion(utility::string_t value);
 
 protected:
-    std::shared_ptr<OperatingSystemType> m_OperatingSystemType;
-    bool m_OperatingSystemTypeIsSet;
     std::shared_ptr<OperatingSystemFamily> m_OperatingSystemFamily;
     bool m_OperatingSystemFamilyIsSet;
     std::shared_ptr<OperatingSystemArchitecture> m_OperatingSystemArchitecture;

@@ -22,7 +22,6 @@ namespace model {
 
 OperatingSystem::OperatingSystem()
 {
-    m_OperatingSystemTypeIsSet = false;
     m_OperatingSystemFamilyIsSet = false;
     m_OperatingSystemArchitectureIsSet = false;
     m_OperatingSystemVersion = utility::conversions::to_string_t("");
@@ -42,10 +41,6 @@ web::json::value OperatingSystem::toJson() const
 {
     web::json::value val = web::json::value::object();
 
-    if(m_OperatingSystemTypeIsSet)
-    {
-        val[utility::conversions::to_string_t("operatingSystemType")] = ModelBase::toJson(m_OperatingSystemType);
-    }
     if(m_OperatingSystemFamilyIsSet)
     {
         val[utility::conversions::to_string_t("operatingSystemFamily")] = ModelBase::toJson(m_OperatingSystemFamily);
@@ -64,15 +59,6 @@ web::json::value OperatingSystem::toJson() const
 
 void OperatingSystem::fromJson(web::json::value& val)
 {
-    if(val.has_field(utility::conversions::to_string_t("operatingSystemType")))
-    {
-        if(!val[utility::conversions::to_string_t("operatingSystemType")].is_null())
-        {
-            std::shared_ptr<OperatingSystemType> newItem(new OperatingSystemType());
-            newItem->fromJson(val[utility::conversions::to_string_t("operatingSystemType")]);
-            setOperatingSystemType( newItem );
-        }
-    }
     if(val.has_field(utility::conversions::to_string_t("operatingSystemFamily")))
     {
         if(!val[utility::conversions::to_string_t("operatingSystemFamily")].is_null())
@@ -105,14 +91,6 @@ void OperatingSystem::toMultipart(std::shared_ptr<MultipartFormData> multipart, 
         namePrefix += utility::conversions::to_string_t(".");
     }
 
-    if(m_OperatingSystemTypeIsSet)
-    {
-        if (m_OperatingSystemType.get())
-        {
-            m_OperatingSystemType->toMultipart(multipart, utility::conversions::to_string_t("operatingSystemType."));
-        }
-        
-    }
     if(m_OperatingSystemFamilyIsSet)
     {
         if (m_OperatingSystemFamily.get())
@@ -144,15 +122,6 @@ void OperatingSystem::fromMultiPart(std::shared_ptr<MultipartFormData> multipart
         namePrefix += utility::conversions::to_string_t(".");
     }
 
-    if(multipart->hasContent(utility::conversions::to_string_t("operatingSystemType")))
-    {
-        if(multipart->hasContent(utility::conversions::to_string_t("operatingSystemType")))
-        {
-            std::shared_ptr<OperatingSystemType> newItem(new OperatingSystemType());
-            newItem->fromMultiPart(multipart, utility::conversions::to_string_t("operatingSystemType."));
-            setOperatingSystemType( newItem );
-        }
-    }
     if(multipart->hasContent(utility::conversions::to_string_t("operatingSystemFamily")))
     {
         if(multipart->hasContent(utility::conversions::to_string_t("operatingSystemFamily")))
@@ -175,27 +144,6 @@ void OperatingSystem::fromMultiPart(std::shared_ptr<MultipartFormData> multipart
     {
         setOperatingSystemVersion(ModelBase::stringFromHttpContent(multipart->getContent(utility::conversions::to_string_t("operatingSystemVersion"))));
     }
-}
-
-std::shared_ptr<OperatingSystemType> OperatingSystem::getOperatingSystemType() const
-{
-    return m_OperatingSystemType;
-}
-
-
-void OperatingSystem::setOperatingSystemType(std::shared_ptr<OperatingSystemType> value)
-{
-    m_OperatingSystemType = value;
-    m_OperatingSystemTypeIsSet = true;
-}
-bool OperatingSystem::operatingSystemTypeIsSet() const
-{
-    return m_OperatingSystemTypeIsSet;
-}
-
-void OperatingSystem::unsetOperatingSystemType()
-{
-    m_OperatingSystemTypeIsSet = false;
 }
 
 std::shared_ptr<OperatingSystemFamily> OperatingSystem::getOperatingSystemFamily() const
