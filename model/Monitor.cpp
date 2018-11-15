@@ -23,13 +23,10 @@ namespace model {
 Monitor::Monitor()
 {
     m_Metric = utility::conversions::to_string_t("");
-    m_MetricIsSet = false;
     m_TargetsIsSet = false;
     m_SensorIsSet = false;
     m_SinksIsSet = false;
     m_TagsIsSet = false;
-    m_Id = utility::conversions::to_string_t("");
-    m_IdIsSet = false;
 }
 
 Monitor::~Monitor()
@@ -45,10 +42,7 @@ web::json::value Monitor::toJson() const
 {
     web::json::value val = web::json::value::object();
 
-    if(m_MetricIsSet)
-    {
-        val[utility::conversions::to_string_t("metric")] = ModelBase::toJson(m_Metric);
-    }
+    val[utility::conversions::to_string_t("metric")] = ModelBase::toJson(m_Metric);
     {
         std::vector<web::json::value> jsonArray;
         for( auto& item : m_Targets )
@@ -86,20 +80,13 @@ web::json::value Monitor::toJson() const
             val[utility::conversions::to_string_t("tags")] = web::json::value::array(jsonArray);
         }
     }
-    if(m_IdIsSet)
-    {
-        val[utility::conversions::to_string_t("id")] = ModelBase::toJson(m_Id);
-    }
 
     return val;
 }
 
 void Monitor::fromJson(web::json::value& val)
 {
-    if(val.has_field(utility::conversions::to_string_t("metric")))
-    {
-        setMetric(ModelBase::stringFromJson(val[utility::conversions::to_string_t("metric")]));
-    }
+    setMetric(ModelBase::stringFromJson(val[utility::conversions::to_string_t("metric")]));
     {
         m_Targets.clear();
         std::vector<web::json::value> jsonArray;
@@ -169,10 +156,6 @@ void Monitor::fromJson(web::json::value& val)
         }
         }
     }
-    if(val.has_field(utility::conversions::to_string_t("id")))
-    {
-        setId(ModelBase::stringFromJson(val[utility::conversions::to_string_t("id")]));
-    }
 }
 
 void Monitor::toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix) const
@@ -183,11 +166,7 @@ void Monitor::toMultipart(std::shared_ptr<MultipartFormData> multipart, const ut
         namePrefix += utility::conversions::to_string_t(".");
     }
 
-    if(m_MetricIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t("metric"), m_Metric));
-        
-    }
+    multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t("metric"), m_Metric));
     {
         std::vector<web::json::value> jsonArray;
         for( auto& item : m_Targets )
@@ -232,11 +211,6 @@ void Monitor::toMultipart(std::shared_ptr<MultipartFormData> multipart, const ut
             multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t("tags"), web::json::value::array(jsonArray), utility::conversions::to_string_t("application/json")));
         }
     }
-    if(m_IdIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t("id"), m_Id));
-        
-    }
 }
 
 void Monitor::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix)
@@ -247,10 +221,7 @@ void Monitor::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const 
         namePrefix += utility::conversions::to_string_t(".");
     }
 
-    if(multipart->hasContent(utility::conversions::to_string_t("metric")))
-    {
-        setMetric(ModelBase::stringFromHttpContent(multipart->getContent(utility::conversions::to_string_t("metric"))));
-    }
+    setMetric(ModelBase::stringFromHttpContent(multipart->getContent(utility::conversions::to_string_t("metric"))));
     {
         m_Targets.clear();
         if(multipart->hasContent(utility::conversions::to_string_t("targets")))
@@ -323,10 +294,6 @@ void Monitor::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const 
         }
         }
     }
-    if(multipart->hasContent(utility::conversions::to_string_t("id")))
-    {
-        setId(ModelBase::stringFromHttpContent(multipart->getContent(utility::conversions::to_string_t("id"))));
-    }
 }
 
 utility::string_t Monitor::getMetric() const
@@ -338,18 +305,8 @@ utility::string_t Monitor::getMetric() const
 void Monitor::setMetric(utility::string_t value)
 {
     m_Metric = value;
-    m_MetricIsSet = true;
+    
 }
-bool Monitor::metricIsSet() const
-{
-    return m_MetricIsSet;
-}
-
-void Monitor::unsetMetric()
-{
-    m_MetricIsSet = false;
-}
-
 std::vector<std::shared_ptr<MonitoringTarget>>& Monitor::getTargets()
 {
     return m_Targets;
@@ -429,27 +386,6 @@ bool Monitor::tagsIsSet() const
 void Monitor::unsetTags()
 {
     m_TagsIsSet = false;
-}
-
-utility::string_t Monitor::getId() const
-{
-    return m_Id;
-}
-
-
-void Monitor::setId(utility::string_t value)
-{
-    m_Id = value;
-    m_IdIsSet = true;
-}
-bool Monitor::idIsSet() const
-{
-    return m_IdIsSet;
-}
-
-void Monitor::unsetId()
-{
-    m_IdIsSet = false;
 }
 
 }

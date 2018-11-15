@@ -23,6 +23,7 @@
 #include "../ModelBase.h"
 
 #include "GeoLocation.h"
+#include <cpprest/details/basic_types.h>
 #include "OperatingSystem.h"
 
 namespace io {
@@ -55,6 +56,13 @@ public:
     /////////////////////////////////////////////
     /// NodeProperties members
 
+    /// <summary>
+    /// 
+    /// </summary>
+    utility::string_t getProviderId() const;
+    bool providerIdIsSet() const;
+    void unsetProviderId();
+    void setProviderId(utility::string_t value);
     /// <summary>
     /// 
     /// </summary>
@@ -92,6 +100,8 @@ public:
     void setGeoLocation(std::shared_ptr<GeoLocation> value);
 
 protected:
+    utility::string_t m_ProviderId;
+    bool m_ProviderIdIsSet;
     int32_t m_NumberOfCores;
     bool m_NumberOfCoresIsSet;
     int64_t m_Memory;

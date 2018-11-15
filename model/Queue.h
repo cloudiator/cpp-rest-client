@@ -70,6 +70,27 @@ public:
     void unsetStatus();
     void setStatus(std::shared_ptr<QueueStatus> value);
     /// <summary>
+    /// 
+    /// </summary>
+    utility::datetime getStart() const;
+    bool startIsSet() const;
+    void unsetStart();
+    void setStart(utility::datetime value);
+    /// <summary>
+    /// 
+    /// </summary>
+    utility::datetime getEnd() const;
+    bool endIsSet() const;
+    void unsetEnd();
+    void setEnd(utility::datetime value);
+    /// <summary>
+    /// Gives human-readable feedback
+    /// </summary>
+    utility::string_t getDiagnosis() const;
+    bool diagnosisIsSet() const;
+    void unsetDiagnosis();
+    void setDiagnosis(utility::string_t value);
+    /// <summary>
     /// Location of the original entity
     /// </summary>
     utility::string_t getLocation() const;
@@ -82,6 +103,12 @@ protected:
     bool m_IdIsSet;
     std::shared_ptr<QueueStatus> m_Status;
     bool m_StatusIsSet;
+    utility::datetime m_Start;
+    bool m_StartIsSet;
+    utility::datetime m_End;
+    bool m_EndIsSet;
+    utility::string_t m_Diagnosis;
+    bool m_DiagnosisIsSet;
     utility::string_t m_Location;
     bool m_LocationIsSet;
 };

@@ -25,11 +25,8 @@
 #include "Error.h"
 #include "Job.h"
 #include "JobNew.h"
-#include "Process.h"
-#include "ProcessNew.h"
+#include "Object.h"
 #include "Queue.h"
-#include "Schedule.h"
-#include "ScheduleNew.h"
 #include <cpprest/details/basic_types.h>
 
 #include <boost/optional.hpp>
@@ -61,21 +58,11 @@ public:
     /// 
     /// </summary>
     /// <remarks>
-    /// Creates a new schedule 
+    /// Deletes the schedule identified by the given id and all corresponding processes and nodes. 
     /// </remarks>
-    /// <param name="schedule">Schedule to be created </param>
-    pplx::task<std::shared_ptr<Queue>> addSchedule(
-        std::shared_ptr<ScheduleNew> schedule
-    );
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <remarks>
-    /// Creates a new process 
-    /// </remarks>
-    /// <param name="process">Process to be created </param>
-    pplx::task<std::shared_ptr<Queue>> createProcess(
-        std::shared_ptr<ProcessNew> process
+    /// <param name="id">Unique identifier of the resource</param>
+    pplx::task<std::shared_ptr<Queue>> deleteSchedule(
+        utility::string_t id
     );
     /// <summary>
     /// 
@@ -99,27 +86,11 @@ public:
     /// 
     /// </summary>
     /// <remarks>
-    /// Retrieves the schedule identified by parameter id. 
+    /// Returns a json graph representation usable by cyctoscape.js 
     /// </remarks>
     /// <param name="id">Unique identifier of the resource</param>
-    pplx::task<std::shared_ptr<Schedule>> findSchedule(
+    pplx::task<std::shared_ptr<Object>> jobGraph(
         utility::string_t id
-    );
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <remarks>
-    /// Retrieves all process of the current user. 
-    /// </remarks>
-    pplx::task<std::vector<std::shared_ptr<Process>>> getProcesses(
-    );
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <remarks>
-    /// Retrieves all schedules by the current user. 
-    /// </remarks>
-    pplx::task<std::vector<std::shared_ptr<Schedule>>> getSchedules(
     );
 
 protected:

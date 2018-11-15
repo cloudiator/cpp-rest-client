@@ -24,6 +24,8 @@ Node::Node()
 {
     m_NodeId = utility::conversions::to_string_t("");
     m_NodeIdIsSet = false;
+    m_Name = utility::conversions::to_string_t("");
+    m_NameIsSet = false;
     m_LoginCredentialIsSet = false;
     m_NodeType = utility::conversions::to_string_t("");
     m_NodeTypeIsSet = false;
@@ -47,6 +49,10 @@ web::json::value Node::toJson() const
     if(m_NodeIdIsSet)
     {
         val[utility::conversions::to_string_t("nodeId")] = ModelBase::toJson(m_NodeId);
+    }
+    if(m_NameIsSet)
+    {
+        val[utility::conversions::to_string_t("name")] = ModelBase::toJson(m_Name);
     }
     if(m_LoginCredentialIsSet)
     {
@@ -80,6 +86,10 @@ void Node::fromJson(web::json::value& val)
     if(val.has_field(utility::conversions::to_string_t("nodeId")))
     {
         setNodeId(ModelBase::stringFromJson(val[utility::conversions::to_string_t("nodeId")]));
+    }
+    if(val.has_field(utility::conversions::to_string_t("name")))
+    {
+        setName(ModelBase::stringFromJson(val[utility::conversions::to_string_t("name")]));
     }
     if(val.has_field(utility::conversions::to_string_t("loginCredential")))
     {
@@ -138,6 +148,11 @@ void Node::toMultipart(std::shared_ptr<MultipartFormData> multipart, const utili
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t("nodeId"), m_NodeId));
         
     }
+    if(m_NameIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t("name"), m_Name));
+        
+    }
     if(m_LoginCredentialIsSet)
     {
         if (m_LoginCredential.get())
@@ -184,6 +199,10 @@ void Node::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const uti
     if(multipart->hasContent(utility::conversions::to_string_t("nodeId")))
     {
         setNodeId(ModelBase::stringFromHttpContent(multipart->getContent(utility::conversions::to_string_t("nodeId"))));
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t("name")))
+    {
+        setName(ModelBase::stringFromHttpContent(multipart->getContent(utility::conversions::to_string_t("name"))));
     }
     if(multipart->hasContent(utility::conversions::to_string_t("loginCredential")))
     {
@@ -249,6 +268,27 @@ bool Node::nodeIdIsSet() const
 void Node::unsetNodeId()
 {
     m_NodeIdIsSet = false;
+}
+
+utility::string_t Node::getName() const
+{
+    return m_Name;
+}
+
+
+void Node::setName(utility::string_t value)
+{
+    m_Name = value;
+    m_NameIsSet = true;
+}
+bool Node::nameIsSet() const
+{
+    return m_NameIsSet;
+}
+
+void Node::unsetName()
+{
+    m_NameIsSet = false;
 }
 
 std::shared_ptr<LoginCredential> Node::getLoginCredential() const

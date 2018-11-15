@@ -77,6 +77,13 @@ public:
     bool idIsSet() const;
     void unsetId();
     void setId(utility::string_t value);
+    /// <summary>
+    /// 
+    /// </summary>
+    utility::string_t getType() const;
+    bool typeIsSet() const;
+    void unsetType();
+    void setType(utility::string_t value);
 
 protected:
     utility::string_t m_Schedule;
@@ -84,6 +91,8 @@ protected:
         utility::string_t m_Node;
         utility::string_t m_Id;
     bool m_IdIsSet;
+    utility::string_t m_Type;
+    bool m_TypeIsSet;
 };
 
 }

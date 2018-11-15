@@ -68,6 +68,13 @@ public:
     /// <summary>
     /// 
     /// </summary>
+    utility::string_t getName() const;
+    bool nameIsSet() const;
+    void unsetName();
+    void setName(utility::string_t value);
+    /// <summary>
+    /// 
+    /// </summary>
     std::shared_ptr<LoginCredential> getLoginCredential() const;
     bool loginCredentialIsSet() const;
     void unsetLoginCredential();
@@ -97,6 +104,8 @@ public:
 protected:
     utility::string_t m_NodeId;
     bool m_NodeIdIsSet;
+    utility::string_t m_Name;
+    bool m_NameIsSet;
     std::shared_ptr<LoginCredential> m_LoginCredential;
     bool m_LoginCredentialIsSet;
     utility::string_t m_NodeType;

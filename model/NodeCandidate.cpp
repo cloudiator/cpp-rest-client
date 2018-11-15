@@ -22,6 +22,8 @@ namespace model {
 
 NodeCandidate::NodeCandidate()
 {
+    m_Id = utility::conversions::to_string_t("");
+    m_IdIsSet = false;
     m_Price = 0.0;
     m_PriceIsSet = false;
     m_CloudIsSet = false;
@@ -43,6 +45,10 @@ web::json::value NodeCandidate::toJson() const
 {
     web::json::value val = web::json::value::object();
 
+    if(m_IdIsSet)
+    {
+        val[utility::conversions::to_string_t("id")] = ModelBase::toJson(m_Id);
+    }
     if(m_PriceIsSet)
     {
         val[utility::conversions::to_string_t("price")] = ModelBase::toJson(m_Price);
@@ -69,6 +75,10 @@ web::json::value NodeCandidate::toJson() const
 
 void NodeCandidate::fromJson(web::json::value& val)
 {
+    if(val.has_field(utility::conversions::to_string_t("id")))
+    {
+        setId(ModelBase::stringFromJson(val[utility::conversions::to_string_t("id")]));
+    }
     if(val.has_field(utility::conversions::to_string_t("price")))
     {
         setPrice(ModelBase::doubleFromJson(val[utility::conversions::to_string_t("price")]));
@@ -119,6 +129,11 @@ void NodeCandidate::toMultipart(std::shared_ptr<MultipartFormData> multipart, co
         namePrefix += utility::conversions::to_string_t(".");
     }
 
+    if(m_IdIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t("id"), m_Id));
+        
+    }
     if(m_PriceIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t("price"), m_Price));
@@ -165,6 +180,10 @@ void NodeCandidate::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, 
         namePrefix += utility::conversions::to_string_t(".");
     }
 
+    if(multipart->hasContent(utility::conversions::to_string_t("id")))
+    {
+        setId(ModelBase::stringFromHttpContent(multipart->getContent(utility::conversions::to_string_t("id"))));
+    }
     if(multipart->hasContent(utility::conversions::to_string_t("price")))
     {
         setPrice(ModelBase::doubleFromHttpContent(multipart->getContent(utility::conversions::to_string_t("price"))));
@@ -205,6 +224,27 @@ void NodeCandidate::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, 
             setLocation( newItem );
         }
     }
+}
+
+utility::string_t NodeCandidate::getId() const
+{
+    return m_Id;
+}
+
+
+void NodeCandidate::setId(utility::string_t value)
+{
+    m_Id = value;
+    m_IdIsSet = true;
+}
+bool NodeCandidate::idIsSet() const
+{
+    return m_IdIsSet;
+}
+
+void NodeCandidate::unsetId()
+{
+    m_IdIsSet = false;
 }
 
 double NodeCandidate::getPrice() const

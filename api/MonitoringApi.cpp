@@ -37,7 +37,7 @@ MonitoringApi::~MonitoringApi()
 {
 }
 
-pplx::task<std::shared_ptr<Monitor>> MonitoringApi::addMonitor(std::shared_ptr<MonitorNew> monitor)
+pplx::task<std::shared_ptr<Monitor>> MonitoringApi::addMonitor(std::shared_ptr<Monitor> monitor)
 {
 
     // verify the required parameter 'monitor' is set
@@ -178,13 +178,13 @@ pplx::task<std::shared_ptr<Monitor>> MonitoringApi::addMonitor(std::shared_ptr<M
         return result;
     });
 }
-pplx::task<void> MonitoringApi::deleteMonitor(utility::string_t id)
+pplx::task<void> MonitoringApi::deleteMonitor(utility::string_t metric)
 {
 
 
     std::shared_ptr<ApiConfiguration> apiConfiguration( m_ApiClient->getConfiguration() );
-    utility::string_t path = utility::conversions::to_string_t("/monitors/{id}");
-    boost::replace_all(path, utility::conversions::to_string_t("{") + utility::conversions::to_string_t("id") + utility::conversions::to_string_t("}"), ApiClient::parameterToString(id));
+    utility::string_t path = utility::conversions::to_string_t("/monitors/{metric}");
+    boost::replace_all(path, utility::conversions::to_string_t("{") + utility::conversions::to_string_t("metric") + utility::conversions::to_string_t("}"), ApiClient::parameterToString(metric));
 
     std::map<utility::string_t, utility::string_t> queryParams;
     std::map<utility::string_t, utility::string_t> headerParams( apiConfiguration->getDefaultHeaders() );
@@ -410,13 +410,13 @@ pplx::task<std::vector<std::shared_ptr<Monitor>>> MonitoringApi::findMonitors()
         return result;
     });
 }
-pplx::task<std::vector<std::shared_ptr<Monitor>>> MonitoringApi::getMonitor(utility::string_t id)
+pplx::task<std::vector<std::shared_ptr<Monitor>>> MonitoringApi::getMonitor(utility::string_t metric)
 {
 
 
     std::shared_ptr<ApiConfiguration> apiConfiguration( m_ApiClient->getConfiguration() );
-    utility::string_t path = utility::conversions::to_string_t("/monitors/{id}");
-    boost::replace_all(path, utility::conversions::to_string_t("{") + utility::conversions::to_string_t("id") + utility::conversions::to_string_t("}"), ApiClient::parameterToString(id));
+    utility::string_t path = utility::conversions::to_string_t("/monitors/{metric}");
+    boost::replace_all(path, utility::conversions::to_string_t("{") + utility::conversions::to_string_t("metric") + utility::conversions::to_string_t("}"), ApiClient::parameterToString(metric));
 
     std::map<utility::string_t, utility::string_t> queryParams;
     std::map<utility::string_t, utility::string_t> headerParams( apiConfiguration->getDefaultHeaders() );

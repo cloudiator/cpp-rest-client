@@ -22,6 +22,7 @@
 
 #include "../ModelBase.h"
 
+#include <cpprest/details/basic_types.h>
 #include "Hardware.h"
 #include "Image.h"
 #include "Location.h"
@@ -60,6 +61,13 @@ public:
     /// <summary>
     /// 
     /// </summary>
+    utility::string_t getId() const;
+    bool idIsSet() const;
+    void unsetId();
+    void setId(utility::string_t value);
+    /// <summary>
+    /// 
+    /// </summary>
     double getPrice() const;
     bool priceIsSet() const;
     void unsetPrice();
@@ -94,6 +102,8 @@ public:
     void setLocation(std::shared_ptr<Location> value);
 
 protected:
+    utility::string_t m_Id;
+    bool m_IdIsSet;
     double m_Price;
     bool m_PriceIsSet;
     std::shared_ptr<Cloud> m_Cloud;

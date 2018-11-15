@@ -27,6 +27,8 @@ Process::Process()
     m_Node = utility::conversions::to_string_t("");
     m_Id = utility::conversions::to_string_t("");
     m_IdIsSet = false;
+    m_Type = utility::conversions::to_string_t("");
+    m_TypeIsSet = false;
 }
 
 Process::~Process()
@@ -49,6 +51,10 @@ web::json::value Process::toJson() const
     {
         val[utility::conversions::to_string_t("id")] = ModelBase::toJson(m_Id);
     }
+    if(m_TypeIsSet)
+    {
+        val[utility::conversions::to_string_t("type")] = ModelBase::toJson(m_Type);
+    }
 
     return val;
 }
@@ -61,6 +67,10 @@ void Process::fromJson(web::json::value& val)
     if(val.has_field(utility::conversions::to_string_t("id")))
     {
         setId(ModelBase::stringFromJson(val[utility::conversions::to_string_t("id")]));
+    }
+    if(val.has_field(utility::conversions::to_string_t("type")))
+    {
+        setType(ModelBase::stringFromJson(val[utility::conversions::to_string_t("type")]));
     }
 }
 
@@ -80,6 +90,11 @@ void Process::toMultipart(std::shared_ptr<MultipartFormData> multipart, const ut
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t("id"), m_Id));
         
     }
+    if(m_TypeIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t("type"), m_Type));
+        
+    }
 }
 
 void Process::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& prefix)
@@ -96,6 +111,10 @@ void Process::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const 
     if(multipart->hasContent(utility::conversions::to_string_t("id")))
     {
         setId(ModelBase::stringFromHttpContent(multipart->getContent(utility::conversions::to_string_t("id"))));
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t("type")))
+    {
+        setType(ModelBase::stringFromHttpContent(multipart->getContent(utility::conversions::to_string_t("type"))));
     }
 }
 
@@ -151,6 +170,27 @@ bool Process::idIsSet() const
 void Process::unsetId()
 {
     m_IdIsSet = false;
+}
+
+utility::string_t Process::getType() const
+{
+    return m_Type;
+}
+
+
+void Process::setType(utility::string_t value)
+{
+    m_Type = value;
+    m_TypeIsSet = true;
+}
+bool Process::typeIsSet() const
+{
+    return m_TypeIsSet;
+}
+
+void Process::unsetType()
+{
+    m_TypeIsSet = false;
 }
 
 }

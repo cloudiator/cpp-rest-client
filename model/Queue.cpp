@@ -25,6 +25,12 @@ Queue::Queue()
     m_Id = utility::conversions::to_string_t("");
     m_IdIsSet = false;
     m_StatusIsSet = false;
+    m_Start = utility::datetime();
+    m_StartIsSet = false;
+    m_End = utility::datetime();
+    m_EndIsSet = false;
+    m_Diagnosis = utility::conversions::to_string_t("");
+    m_DiagnosisIsSet = false;
     m_Location = utility::conversions::to_string_t("");
     m_LocationIsSet = false;
 }
@@ -50,6 +56,18 @@ web::json::value Queue::toJson() const
     {
         val[utility::conversions::to_string_t("status")] = ModelBase::toJson(m_Status);
     }
+    if(m_StartIsSet)
+    {
+        val[utility::conversions::to_string_t("start")] = ModelBase::toJson(m_Start);
+    }
+    if(m_EndIsSet)
+    {
+        val[utility::conversions::to_string_t("end")] = ModelBase::toJson(m_End);
+    }
+    if(m_DiagnosisIsSet)
+    {
+        val[utility::conversions::to_string_t("diagnosis")] = ModelBase::toJson(m_Diagnosis);
+    }
     if(m_LocationIsSet)
     {
         val[utility::conversions::to_string_t("location")] = ModelBase::toJson(m_Location);
@@ -72,6 +90,18 @@ void Queue::fromJson(web::json::value& val)
             newItem->fromJson(val[utility::conversions::to_string_t("status")]);
             setStatus( newItem );
         }
+    }
+    if(val.has_field(utility::conversions::to_string_t("start")))
+    {
+        setStart(ModelBase::dateFromJson(val[utility::conversions::to_string_t("start")]));
+    }
+    if(val.has_field(utility::conversions::to_string_t("end")))
+    {
+        setEnd(ModelBase::dateFromJson(val[utility::conversions::to_string_t("end")]));
+    }
+    if(val.has_field(utility::conversions::to_string_t("diagnosis")))
+    {
+        setDiagnosis(ModelBase::stringFromJson(val[utility::conversions::to_string_t("diagnosis")]));
     }
     if(val.has_field(utility::conversions::to_string_t("location")))
     {
@@ -98,6 +128,21 @@ void Queue::toMultipart(std::shared_ptr<MultipartFormData> multipart, const util
         {
             m_Status->toMultipart(multipart, utility::conversions::to_string_t("status."));
         }
+        
+    }
+    if(m_StartIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t("start"), m_Start));
+        
+    }
+    if(m_EndIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t("end"), m_End));
+        
+    }
+    if(m_DiagnosisIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t("diagnosis"), m_Diagnosis));
         
     }
     if(m_LocationIsSet)
@@ -127,6 +172,18 @@ void Queue::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const ut
             newItem->fromMultiPart(multipart, utility::conversions::to_string_t("status."));
             setStatus( newItem );
         }
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t("start")))
+    {
+        setStart(ModelBase::dateFromHttpContent(multipart->getContent(utility::conversions::to_string_t("start"))));
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t("end")))
+    {
+        setEnd(ModelBase::dateFromHttpContent(multipart->getContent(utility::conversions::to_string_t("end"))));
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t("diagnosis")))
+    {
+        setDiagnosis(ModelBase::stringFromHttpContent(multipart->getContent(utility::conversions::to_string_t("diagnosis"))));
     }
     if(multipart->hasContent(utility::conversions::to_string_t("location")))
     {
@@ -174,6 +231,69 @@ bool Queue::statusIsSet() const
 void Queue::unsetStatus()
 {
     m_StatusIsSet = false;
+}
+
+utility::datetime Queue::getStart() const
+{
+    return m_Start;
+}
+
+
+void Queue::setStart(utility::datetime value)
+{
+    m_Start = value;
+    m_StartIsSet = true;
+}
+bool Queue::startIsSet() const
+{
+    return m_StartIsSet;
+}
+
+void Queue::unsetStart()
+{
+    m_StartIsSet = false;
+}
+
+utility::datetime Queue::getEnd() const
+{
+    return m_End;
+}
+
+
+void Queue::setEnd(utility::datetime value)
+{
+    m_End = value;
+    m_EndIsSet = true;
+}
+bool Queue::endIsSet() const
+{
+    return m_EndIsSet;
+}
+
+void Queue::unsetEnd()
+{
+    m_EndIsSet = false;
+}
+
+utility::string_t Queue::getDiagnosis() const
+{
+    return m_Diagnosis;
+}
+
+
+void Queue::setDiagnosis(utility::string_t value)
+{
+    m_Diagnosis = value;
+    m_DiagnosisIsSet = true;
+}
+bool Queue::diagnosisIsSet() const
+{
+    return m_DiagnosisIsSet;
+}
+
+void Queue::unsetDiagnosis()
+{
+    m_DiagnosisIsSet = false;
 }
 
 utility::string_t Queue::getLocation() const

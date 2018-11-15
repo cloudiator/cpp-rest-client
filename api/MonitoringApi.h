@@ -23,7 +23,6 @@
 #include "../ApiClient.h"
 
 #include "Monitor.h"
-#include "MonitorNew.h"
 #include <cpprest/details/basic_types.h>
 
 #include <boost/optional.hpp>
@@ -49,17 +48,17 @@ public:
     /// </remarks>
     /// <param name="monitor">Monitor to be created </param>
     pplx::task<std::shared_ptr<Monitor>> addMonitor(
-        std::shared_ptr<MonitorNew> monitor
+        std::shared_ptr<Monitor> monitor
     );
     /// <summary>
     /// 
     /// </summary>
     /// <remarks>
-    /// Deletes the monitor identified by the given id paramater. 
+    /// Deletes the monitor identified by the given metric name. 
     /// </remarks>
-    /// <param name="id">Unique identifier of the resource</param>
+    /// <param name="metric">Unique identifier of a monitor</param>
     pplx::task<void> deleteMonitor(
-        utility::string_t id
+        utility::string_t metric
     );
     /// <summary>
     /// 
@@ -73,11 +72,11 @@ public:
     /// 
     /// </summary>
     /// <remarks>
-    /// Retrieves the monitor with the given id parameter 
+    /// Retrieves the monitor with the given metric name 
     /// </remarks>
-    /// <param name="id">Unique identifier of the resource</param>
+    /// <param name="metric">Unique identifier of a monitor</param>
     pplx::task<std::vector<std::shared_ptr<Monitor>>> getMonitor(
-        utility::string_t id
+        utility::string_t metric
     );
 
 protected:

@@ -95,6 +95,20 @@ public:
     bool idIsSet() const;
     void unsetId();
     void setId(utility::string_t value);
+    /// <summary>
+    /// State of the cloud
+    /// </summary>
+    utility::string_t getState() const;
+    bool stateIsSet() const;
+    void unsetState();
+    void setState(utility::string_t value);
+    /// <summary>
+    /// Diagnostic information for the cloud
+    /// </summary>
+    utility::string_t getDiagnostic() const;
+    bool diagnosticIsSet() const;
+    void unsetDiagnostic();
+    void setDiagnostic(utility::string_t value);
 
 protected:
     utility::string_t m_Endpoint;
@@ -106,6 +120,10 @@ protected:
     bool m_CloudConfigurationIsSet;
     utility::string_t m_Id;
     bool m_IdIsSet;
+    utility::string_t m_State;
+    bool m_StateIsSet;
+    utility::string_t m_Diagnostic;
+    bool m_DiagnosticIsSet;
 };
 
 }

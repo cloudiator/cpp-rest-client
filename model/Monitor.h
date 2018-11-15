@@ -27,7 +27,6 @@
 #include "MonitoringTag.h"
 #include <cpprest/details/basic_types.h>
 #include "MonitoringTarget.h"
-#include "MonitorNew.h"
 #include <vector>
 
 namespace io {
@@ -64,9 +63,7 @@ public:
     /// Name of the collected metric
     /// </summary>
     utility::string_t getMetric() const;
-    bool metricIsSet() const;
-    void unsetMetric();
-    void setMetric(utility::string_t value);
+        void setMetric(utility::string_t value);
     /// <summary>
     /// 
     /// </summary>
@@ -95,18 +92,10 @@ public:
     bool tagsIsSet() const;
     void unsetTags();
     void setTags(std::vector<std::shared_ptr<MonitoringTag>> value);
-    /// <summary>
-    /// 
-    /// </summary>
-    utility::string_t getId() const;
-    bool idIsSet() const;
-    void unsetId();
-    void setId(utility::string_t value);
 
 protected:
     utility::string_t m_Metric;
-    bool m_MetricIsSet;
-    std::vector<std::shared_ptr<MonitoringTarget>> m_Targets;
+        std::vector<std::shared_ptr<MonitoringTarget>> m_Targets;
     bool m_TargetsIsSet;
     std::shared_ptr<Sensor> m_Sensor;
     bool m_SensorIsSet;
@@ -114,8 +103,6 @@ protected:
     bool m_SinksIsSet;
     std::vector<std::shared_ptr<MonitoringTag>> m_Tags;
     bool m_TagsIsSet;
-    utility::string_t m_Id;
-    bool m_IdIsSet;
 };
 
 }

@@ -25,7 +25,7 @@
 #include "Error.h"
 #include "Node.h"
 #include "NodeGroup.h"
-#include "NodeRequirements.h"
+#include "NodeRequest.h"
 #include "Queue.h"
 #include <cpprest/details/basic_types.h>
 
@@ -60,9 +60,19 @@ public:
     /// <remarks>
     /// Create a new node request
     /// </remarks>
-    /// <param name="nodeRequirements">Node Request</param>
+    /// <param name="nodeRequest">Node Request</param>
     pplx::task<std::shared_ptr<Queue>> addNode(
-        std::shared_ptr<NodeRequirements> nodeRequirements
+        std::shared_ptr<NodeRequest> nodeRequest
+    );
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Deletes the node with the given id.
+    /// </remarks>
+    /// <param name="id">Unique identifier of the resource</param>
+    pplx::task<std::shared_ptr<Queue>> deleteNode(
+        utility::string_t id
     );
     /// <summary>
     /// 

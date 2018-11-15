@@ -22,6 +22,8 @@ namespace model {
 
 NodeProperties::NodeProperties()
 {
+    m_ProviderId = utility::conversions::to_string_t("");
+    m_ProviderIdIsSet = false;
     m_NumberOfCores = 0;
     m_NumberOfCoresIsSet = false;
     m_Memory = 0L;
@@ -45,6 +47,10 @@ web::json::value NodeProperties::toJson() const
 {
     web::json::value val = web::json::value::object();
 
+    if(m_ProviderIdIsSet)
+    {
+        val[utility::conversions::to_string_t("providerId")] = ModelBase::toJson(m_ProviderId);
+    }
     if(m_NumberOfCoresIsSet)
     {
         val[utility::conversions::to_string_t("numberOfCores")] = ModelBase::toJson(m_NumberOfCores);
@@ -71,6 +77,10 @@ web::json::value NodeProperties::toJson() const
 
 void NodeProperties::fromJson(web::json::value& val)
 {
+    if(val.has_field(utility::conversions::to_string_t("providerId")))
+    {
+        setProviderId(ModelBase::stringFromJson(val[utility::conversions::to_string_t("providerId")]));
+    }
     if(val.has_field(utility::conversions::to_string_t("numberOfCores")))
     {
         setNumberOfCores(ModelBase::int32_tFromJson(val[utility::conversions::to_string_t("numberOfCores")]));
@@ -111,6 +121,11 @@ void NodeProperties::toMultipart(std::shared_ptr<MultipartFormData> multipart, c
         namePrefix += utility::conversions::to_string_t(".");
     }
 
+    if(m_ProviderIdIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t("providerId"), m_ProviderId));
+        
+    }
     if(m_NumberOfCoresIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t("numberOfCores"), m_NumberOfCores));
@@ -149,6 +164,10 @@ void NodeProperties::fromMultiPart(std::shared_ptr<MultipartFormData> multipart,
         namePrefix += utility::conversions::to_string_t(".");
     }
 
+    if(multipart->hasContent(utility::conversions::to_string_t("providerId")))
+    {
+        setProviderId(ModelBase::stringFromHttpContent(multipart->getContent(utility::conversions::to_string_t("providerId"))));
+    }
     if(multipart->hasContent(utility::conversions::to_string_t("numberOfCores")))
     {
         setNumberOfCores(ModelBase::int32_tFromHttpContent(multipart->getContent(utility::conversions::to_string_t("numberOfCores"))));
@@ -179,6 +198,27 @@ void NodeProperties::fromMultiPart(std::shared_ptr<MultipartFormData> multipart,
             setGeoLocation( newItem );
         }
     }
+}
+
+utility::string_t NodeProperties::getProviderId() const
+{
+    return m_ProviderId;
+}
+
+
+void NodeProperties::setProviderId(utility::string_t value)
+{
+    m_ProviderId = value;
+    m_ProviderIdIsSet = true;
+}
+bool NodeProperties::providerIdIsSet() const
+{
+    return m_ProviderIdIsSet;
+}
+
+void NodeProperties::unsetProviderId()
+{
+    m_ProviderIdIsSet = false;
 }
 
 int32_t NodeProperties::getNumberOfCores() const
